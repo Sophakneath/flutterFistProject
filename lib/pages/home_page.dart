@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
 
   void _addTransaction() {
     setState(() {
-      _height = .8;
+      _height = .1;
     });
   }
 

@@ -72,7 +72,7 @@ class _TransactionState extends State<TransactionCard> {
                         ),
                         InkWell(
                           onTap: () => setState(() => _date++),
-                          child: const Icon(Icons.arrow_left),
+                          child: const Icon(Icons.arrow_right),
                         ),
                       ],
                     ),
@@ -84,7 +84,7 @@ class _TransactionState extends State<TransactionCard> {
                 child: ListView.builder(
               itemCount: providerTransactions.transactions.length,
               itemBuilder: (context, i) {
-                return TransactionItem(providerTransactions.transactions[1]);
+                return TransactionItem(providerTransactions.transactions[i]);
               },
             ))
           ])),
