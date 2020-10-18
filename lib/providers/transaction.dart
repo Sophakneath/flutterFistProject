@@ -22,6 +22,9 @@ class Transactions with ChangeNotifier {
     Transaction(id: 1, title: 'Dinner', value: 129, category: "Meals", iconData: Icons.fastfood, color: Color(0xffe8505b)),
     Transaction(id: 1, title: 'Dinner', value: 129, category: "Meals", iconData: Icons.fastfood, color: Color(0xffe8505b)),
     Transaction(id: 1, title: 'Dinner', value: 129, category: "Meals", iconData: Icons.fastfood, color: Color(0xffe8505b)),
+    Transaction(id: 1, title: 'Dinner', value: 129, category: "Meals", iconData: Icons.fastfood, color: Color(0xffe8505b)),
+    Transaction(id: 1, title: 'Dinner', value: 129, category: "Meals", iconData: Icons.fastfood, color: Color(0xffe8505b)),
+    Transaction(id: 1, title: 'Dinner', value: 129, category: "Meals", iconData: Icons.fastfood, color: Color(0xffe8505b)),
   ];
 
   List<Transaction> get transactions{

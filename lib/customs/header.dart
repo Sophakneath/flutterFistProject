@@ -81,10 +81,10 @@ class Header extends StatelessWidget {
               //   ],
               // ),
               const SizedBox(
-                height: 10,
+                height: 12,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 12, bottom: 12),
+                padding: const EdgeInsets.only(left: 12, bottom: 10),
                 child: const Text(
                   'Transactions',
                   style: TextStyle(
@@ -100,8 +100,8 @@ class Header extends StatelessWidget {
 
   Widget _buildStatistic() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
-      padding: EdgeInsets.all(12),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.all(5),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -145,31 +145,35 @@ class Header extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Icon(
-          FlutterIcons.label,
-          size: 50,
-          color: color,
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.only(right:10),
+            child: Icon(
+                  Icons.circle,
+                  size: 20,
+                  color: color,
+                ),
+          ),
+          SizedBox(height: 50),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(height: 5),
-            Text(
-              value,
-              style: TextStyle(
-                color: Colors.white
+              SizedBox(height: 2),
+              Text(
+                value,
+                style: TextStyle(
+                  color: Colors.white
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
     );
   }
 }
