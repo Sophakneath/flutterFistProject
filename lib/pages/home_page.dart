@@ -8,11 +8,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double _height = .55;
+  List<Widget> itemData = [];
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
+  double topContainer = 0;
 
-  void _addTransaction() {
+  void getData() {
+    itemData.add(TransactionCard());
+    itemData.add(TransactionCard());
+    itemData.add(TransactionCard());
+    itemData.add(TransactionCard());
+    itemData.add(TransactionCard());
     setState(() {
-      _height = .1;
+      return itemData;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    controller.addListener(() {
+      double value = controller.offset / 500;
+
+      setState(() {
+        topContainer = value;
+        // closeTopContainer = controller.offset > 10;
+      });
     });
   }
 
@@ -20,37 +42,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.short_text),
-          onPressed: () {},
-        ),
-        centerTitle: true,
-        title: const Text(
-          'Transaction',
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'Moutserrat',
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.person_outline), 
-            onPressed: () {}
-          )
-        ],
-      ),
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Header(_addTransaction),
-            ],
-          ),
-          TransactionCard(_height),
-        ],
+      body: Container(
+        color: Theme.of(context).primaryColor,
+        child: Container(
+            child: Column(
+          children: <Widget>[
+            Header(),
+            Expanded(
+                child: ListView.builder(
+              itemCount: itemData.length,
+              itemBuilder: (context, index) {
+                return itemData[index];
+              },
+            ))
+          ],
+        )),
       ),
     );
   }

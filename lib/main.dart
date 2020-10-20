@@ -1,8 +1,10 @@
 import 'package:MyApp/pages/home_page.dart';
+import 'package:MyApp/pages/setting_page.dart';
+import 'package:MyApp/pages/statistic_page.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import './providers/transaction.dart';
+import 'models/transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,17 +27,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => Transactions(),
-      child: MaterialApp(
-        title: 'Flutter App',
-        home: HomePage(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: _2A3638,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-      )
-    );
+        create: (context) => Transactions(),
+        child: MaterialApp(
+          title: 'Flutter App',
+          home: MyHomePage(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: _2A3638,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+        ));
   }
 }
 
@@ -45,43 +46,75 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  var _pages = [HomePage(), Statistic(), Setting()];
+  var _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.cyan,
-      //   title: Text(
-      //     'Flutter App',
-      //     style: TextStyle(color: Colors.black),
-      //   ),
-      // ),
-      body: Container(
-        color: Colors.white,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.short_text),
+          onPressed: () {},
         ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        color: Colors.cyan,
-        backgroundColor: Colors.white,
-        buttonBackgroundColor: Colors.cyan,
-        height: 50,
-        items: <Widget>[
-          Icon(Icons.dashboard, size: 20, color: Colors.white),
-          Icon(Icons.category_rounded, size: 20, color: Colors.white),
-          Icon(Icons.money_off_sharp, size: 30, color: Colors.white),
-          Icon(Icons.star, size: 20, color: Colors.white),
-          Icon(Icons.more_horiz, size: 20, color: Colors.white),
+        centerTitle: true,
+        title: const Text(
+          'Transaction',
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Moutserrat',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(icon: const Icon(Icons.person_outline), onPressed: () {})
         ],
-        index: 2,
-        animationDuration: Duration(milliseconds: 200),
-        animationCurve: Curves.bounceInOut,
-        onTap: (index) {
-          debugPrint("$index");
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+      body: PageView(
+        children: _pages,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
         },
+        controller: _pageController,
+      ),
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: _selectedIndex,
+        showElevation: true,
+        onItemSelected: (index) => setState(() {
+          _selectedIndex = index;
+          _pageController.animateToPage(_selectedIndex,
+                duration: Duration(milliseconds: 200), curve: Curves.linear);
+        }),
+        items: <BottomNavyBarItem>[
+          BottomNavyBarItem(
+              icon: Icon(Icons.home), title: Text("Home"), activeColor: color),
+          BottomNavyBarItem(
+              icon: Icon(Icons.pie_chart),
+              title: Text("Statistic"),
+              activeColor: color),
+          BottomNavyBarItem(
+              icon: Icon(Icons.settings),
+              title: Text("Setting"),
+              activeColor: color),
+          BottomNavyBarItem(
+              icon: Icon(Icons.star),
+              title: Text("Rate Us"),
+              activeColor: color),
+          BottomNavyBarItem(
+              icon: Icon(Icons.person),
+              title: Text("About Us"),
+              activeColor: color)
+        ],
+        animationDuration: Duration(milliseconds: 200),
       ),
     );
   }

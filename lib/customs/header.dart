@@ -1,107 +1,63 @@
-import 'package:MyApp/core/flutter_icons.dart';
 import 'package:MyApp/widgets/chart_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Header extends StatelessWidget {
-  final Function addTransaction;
+  // final Function addTransaction;
 
-  const Header(this.addTransaction);
+  // const Header(this.addTransaction);
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
-    final mediaQuery = MediaQuery.of(context);
-
+    
     return Container(
         width: double.infinity,
-        height: mediaQuery.size.height * .5,
-        color: primaryColor,
         child: Padding(
-          padding: const EdgeInsets.all(2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildStatistic(),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: <Widget>[
-              //     OutlineButton(
-              //       onPressed: addTransaction,
-              //       borderSide: const BorderSide(width: 1, color: Colors.white),
-              //       shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(24)),
-              //       child: Container(
-              //         width: 124,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: <Widget>[
-              //             const Icon(
-              //               Icons.playlist_add,
-              //               color: Colors.white,
-              //             ),
-              //             const SizedBox(width: 4),
-              //             const Text(
-              //               'Add Transaction',
-              //               style: TextStyle(
-              //                 fontSize: 12,
-              //                 color: Colors.white,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //     FlatButton(
-              //       onPressed: () {},
-              //       color: Colors.white,
-              //       shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(24)),
-              //       child: Container(
-              //         width: 72,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: <Widget>[
-              //             Text(
-              //               'Reports',
-              //               style: TextStyle(
-              //                 fontSize: 12,
-              //                 color: primaryColor,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //             Icon(
-              //               Icons.navigate_next,
-              //               color: primaryColor,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // ),
-              const SizedBox(
-                height: 12,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12, bottom: 10),
-                child: const Text(
-                  'Transactions',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+            padding: const EdgeInsets.all(2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 13, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Icon(Icons.arrow_left, color: Colors.white,),
+                      Text(
+                        "July 2020",
+                        style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          color: Colors.white
+                        ),
+                      ),
+                      Icon(Icons.arrow_right, color: Colors.white,)
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                 _buildStatistic(),
+                const SizedBox(
+                  height: 12,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12, bottom: 10),
+                  child: const Text(
+                    'Transactions',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ));
+        );
   }
 
   Widget _buildStatistic() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(7),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -110,13 +66,13 @@ class Header extends StatelessWidget {
               alignment: Alignment.center,
               children: <Widget>[
                 Container(
-                  width: 160,
-                  height: 160,
+                  width: 150,
+                  height: 150,
                   child: DonutPieChart.withSampleData(),
                 ),
                 Container(
-                  width: 70,
-                  height: 70,
+                  width: 60,
+                  height: 60,
                   decoration: new BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
@@ -149,11 +105,11 @@ class Header extends StatelessWidget {
             padding: const EdgeInsets.only(right:10),
             child: Icon(
                   Icons.circle,
-                  size: 20,
+                  size: 18,
                   color: color,
                 ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: 47),
           Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +120,7 @@ class Header extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 2),
+              SizedBox(height: 1),
               Text(
                 value,
                 style: TextStyle(
