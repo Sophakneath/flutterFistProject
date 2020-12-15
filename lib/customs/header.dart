@@ -1,6 +1,6 @@
 import 'package:MyApp/widgets/chart_widget.dart';
+import 'package:MyApp/widgets/date_header.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Header extends StatelessWidget {
   // final Function addTransaction;
@@ -9,49 +9,32 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Container(
-        width: double.infinity,
-        child: Padding(
-            padding: const EdgeInsets.all(2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 13, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Icon(Icons.arrow_left, color: Colors.white,),
-                      Text(
-                        "July 2020",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 16,
-                          color: Colors.white
-                        ),
-                      ),
-                      Icon(Icons.arrow_right, color: Colors.white,)
-                    ],
-                  ),
-                ),
-                 _buildStatistic(),
-                const SizedBox(
-                  height: 12,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12, bottom: 10),
-                  child: const Text(
-                    'Transactions',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            DateHeader(),
+            _buildStatistic(),
+            const SizedBox(
+              height: 12,
             ),
-          ),
-        );
+            Padding(
+              padding: const EdgeInsets.only(left: 12, bottom: 10),
+              child: const Text(
+                'Transactions',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildStatistic() {
@@ -79,15 +62,13 @@ class Header extends StatelessWidget {
                   ),
                 ),
               ],
-            ), 
+            ),
             SizedBox(width: 25),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _buildStatisticItem(
-                    Colors.blueAccent, "Income", "23,29,539"),
-                _buildStatisticItem(
-                    Colors.redAccent, "Expense", "5,92,229"),
+                _buildStatisticItem(Colors.blueAccent, "Income", "23,29,539"),
+                _buildStatisticItem(Colors.redAccent, "Expense", "5,92,229"),
                 _buildStatisticItem(Colors.white, "Total", "1,60,717"),
               ],
             ),
@@ -101,35 +82,33 @@ class Header extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right:10),
-            child: Icon(
-                  Icons.circle,
-                  size: 18,
-                  color: color,
-                ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Icon(
+            Icons.circle,
+            size: 18,
+            color: color,
           ),
-          SizedBox(height: 47),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+        ),
+        SizedBox(height: 47),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.white,
               ),
-              SizedBox(height: 1),
-              Text(
-                value,
-                style: TextStyle(
-                  color: Colors.white
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(height: 1),
+            Text(
+              value,
+              style: TextStyle(color: Colors.white),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

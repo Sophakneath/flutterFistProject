@@ -1,6 +1,9 @@
+// import 'package:MyApp/pages/expense_statistic_page.dart';
+// import 'package:MyApp/pages/income_statistic_page.dart';
+import 'package:MyApp/widgets/app_bar_widget.dart';
+import 'package:MyApp/widgets/date_header.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class Statistic extends StatefulWidget {
   @override
@@ -8,124 +11,141 @@ class Statistic extends StatefulWidget {
 }
 
 class _HomeState extends State<Statistic> {
-  TextStyle nameStyle = GoogleFonts.montserrat(
-      fontWeight: FontWeight.w700, color: Colors.grey, fontSize: 15);
-  TextStyle amountStyle = GoogleFonts.montserrat(
-    fontWeight: FontWeight.w700, color: Colors.black, fontSize: 16);
+  Color color = Colors.transparent;
+  // bool _isIncomeTap = true;
+  // bool _isExpenseTap = false;
+  // int _selectedIndex = 1;
+  // var _pages = [IncomeStatistic(), ExpenseStatistic()];
+  // var _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
+    Map<String, double> dataMap = {
+      "Flutter": 5,
+      "React": 3,
+      "Xamarin": 2,
+      "Ionic": 2,
+      "Abc": 1,
+    };
+
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F6),
-      body: Stack(
-        children: <Widget>[
-          ClipPath(
-            clipper: OvalBottomBorderClipper(),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 200,
-              decoration: BoxDecoration(color: Color(0xFF605BDD)),
+      appBar: MyAppBar(
+        context: context,
+        title: const Text(
+          'Statistic',
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Moutserrat',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Theme.of(context).primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            // child: _buildTabBar()
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                DateHeader(),
+                // _buildTabBar(),
+                SizedBox(
+                  height: 40,
+                ),
+                _buildPiechartData(dataMap),
+                SizedBox(
+                  height: 40,
+                ),
+                _buildDataDetail("Income List"),
+              ],
             ),
           ),
-          ListView(
-            padding: EdgeInsets.all(8.0),
-            children: <Widget>[
-              SizedBox(
-                height: 40.0,
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "OVERVIEW",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "Here is a list of your Transactions",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 18,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              SizedBox(height: 40.0),
-              Container(
-                padding: EdgeInsets.all(13.0),
-                margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 13.0),
-                height: 150,
-                decoration: BoxDecoration(color: Colors.white),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Icon(Icons.arrow_back_ios, size: 16,),
-                        Text(
-                          "July 2020",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Icon(Icons.arrow_forward_ios, size: 16,)
-                      ],
-                    ),
-                    SizedBox(
-                      height: 28.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(
-                          "Expenses",
-                          style: nameStyle,
-                        ),
-                        Text(
-                          "Incomes",
-                          style: nameStyle,
-                        ),
-                        Text(
-                          "Balance",
-                          style: nameStyle,
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(
-                          "28.00\$",
-                          style: amountStyle,
-                          
-                        ),
-                        Text(
-                          "8.00\$",
-                          style: amountStyle,
-                        ),
-                        Text(
-                          "2.000\$",
-                          style: amountStyle,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 15.0,),
-
-            ],
-          )
-        ],
+        ),
       ),
     );
+  }
+
+  Widget _buildPiechartData(var dataMap) {
+    return PieChart(
+      dataMap: dataMap,
+      animationDuration: Duration(milliseconds: 800),
+      chartLegendSpacing: 60,
+      chartRadius: MediaQuery.of(context).size.width / 2,
+      // colorList: colorList,
+      initialAngleInDegree: 0,
+      legendOptions: LegendOptions(
+        showLegendsInRow: false,
+        showLegends: false,
+      ),
+      chartValuesOptions: ChartValuesOptions(
+        showChartValueBackground: true,
+        showChartValues: true,
+        showChartValuesInPercentage: true,
+        showChartValuesOutside: true,
+      ),
+    );
+  }
+
+  Widget _buildDataDetail(var listname) {
+    return Container(
+      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              listname,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+            ),
+            _buildDataItem("Food", Colors.blueAccent),
+            _buildDataItem("Ohter", Colors.redAccent),
+            _buildDataItem("Service", Colors.greenAccent)
+          ]),
+    );
+  }
+
+  Widget _buildDataItem(var name, var color) {
+    return Column(children: <Widget>[
+      ListTile(
+        leading: Container(
+            decoration: BoxDecoration(
+                color: color, borderRadius: BorderRadius.circular(6)),
+            padding: EdgeInsets.all(6),
+            child: Text(
+              "23.1%",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            )),
+        title: Text(
+          name,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        trailing: Text(
+          '\$${100}',
+          style: const TextStyle(
+            fontSize: 15,
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ]);
   }
 }

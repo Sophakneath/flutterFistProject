@@ -1,4 +1,7 @@
+import 'package:MyApp/core/menu_icons_icons.dart';
+import 'package:MyApp/pages/categories.dart';
 import 'package:MyApp/pages/home_page.dart';
+import 'package:MyApp/pages/rating_page.dart';
 import 'package:MyApp/pages/setting_page.dart';
 import 'package:MyApp/pages/statistic_page.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
@@ -34,6 +37,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: _2A3638,
+            primaryColor: _2A3638,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
         ));
@@ -47,36 +51,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  var _pages = [HomePage(), Statistic(), Setting()];
+  var _pages = [HomePage(), Statistic(), CategoriesPage(), SettingPage(), RatingPage()];
   var _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     Color color = Theme.of(context).primaryColor;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.short_text),
-          onPressed: () {},
-        ),
-        centerTitle: true,
-        title: const Text(
-          'Transaction',
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'Moutserrat',
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(icon: const Icon(Icons.person_outline), onPressed: () {})
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
       body: PageView(
         children: _pages,
         onPageChanged: (index) {
@@ -91,31 +72,34 @@ class _MyHomePageState extends State<MyHomePage> {
         showElevation: true,
         onItemSelected: (index) => setState(() {
           _selectedIndex = index;
-          _pageController.animateToPage(_selectedIndex,
-                duration: Duration(milliseconds: 200), curve: Curves.linear);
+          _pageController.jumpToPage(_selectedIndex,
+              );
         }),
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              icon: Icon(Icons.home), title: Text("Home"), activeColor: color),
+              icon: Icon(MenuIcons.book_of_black_cover_closed, size: 20,),
+              title: Text("Transaction"),
+              activeColor: color),
           BottomNavyBarItem(
-              icon: Icon(Icons.pie_chart),
+              icon: Icon(MenuIcons.pie_chart, size: 20,),
               title: Text("Statistic"),
               activeColor: color),
           BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text("Setting"),
+              icon: Icon(MenuIcons.dashboard, size: 20,),
+              title: Text("Categories"),
               activeColor: color),
           BottomNavyBarItem(
-              icon: Icon(Icons.star),
+              icon: Icon(MenuIcons.settings, size: 20,),
+              title: Text("Settings"),
+              activeColor: color),
+          BottomNavyBarItem(
+              icon: Icon(MenuIcons.star, size: 20,),
               title: Text("Rate Us"),
-              activeColor: color),
-          BottomNavyBarItem(
-              icon: Icon(Icons.person),
-              title: Text("About Us"),
               activeColor: color)
         ],
         animationDuration: Duration(milliseconds: 200),
       ),
     );
   }
+
 }

@@ -14,7 +14,7 @@ class TransactionCard extends StatefulWidget {
 }
 
 class _TransactionState extends State<TransactionCard> {
-  int _date = 16;
+  // int _date = 16;
 
   @override
   Widget build(BuildContext context) {

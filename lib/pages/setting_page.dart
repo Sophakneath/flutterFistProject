@@ -1,17 +1,29 @@
 import 'package:MyApp/customs/header.dart';
+import 'package:MyApp/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 
-class Setting extends StatefulWidget {
-  Setting({Key key}) : super(key: key);
+class SettingPage extends StatefulWidget {
+  SettingPage({Key key}) : super(key: key);
 
   @override
-  _settingState createState() => _settingState();
+  _SettingPageState createState() => _SettingPageState();
 }
 
-class _settingState extends State<Setting> {
+class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
+      appBar: MyAppBar(
+        context: context,
+        title: const Text(
+          'Settings',
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Moutserrat',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       backgroundColor: Colors.black,
       body: Container(
         color: Theme.of(context).primaryColor,
