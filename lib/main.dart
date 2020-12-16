@@ -51,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  var _pages = [HomePage(), Statistic(), CategoriesPage(), SettingPage(), RatingPage()];
+  var _pages = [HomePage(), Statistic1(), CategoriesPage(), SettingPage(), RatingPage()];
   var _pageController = PageController();
 
   @override

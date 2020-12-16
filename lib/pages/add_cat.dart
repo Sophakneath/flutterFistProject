@@ -36,7 +36,7 @@ class _AddCatState extends State<AddCat> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: _2A3638,
-        primaryColor: Color.fromRGBO(42, 54, 50, 1.0),
+        primaryColor: _2A3638,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(

@@ -23,7 +23,7 @@ class MyAppBar extends AppBar {
 class MyAppBarAddCat extends AppBar {
   MyAppBarAddCat({Key key, Widget title, Widget bottom, BuildContext context})
       : super(key: key, 
-        backgroundColor: Color.fromRGBO(42, 54, 50, 1.0),
+        backgroundColor: Theme.of(context).primaryColor,
         bottom: bottom,
         title: title,
         elevation: 0,
